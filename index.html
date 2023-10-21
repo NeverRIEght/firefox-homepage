@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новая вкладка</title>
+
+    <style>
+        body, html {
+            height: 80%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        body {
+            background-color: #2B2933;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .body-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #2B2933;
+            max-width: 960px;
+            min-width: 230px;
+        }
+        .headline-container {
+            margin-bottom: 48px;
+        }
+        .headline-flex {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            height: 80px;
+            min-height: 80px;
+            max-height: 80px;
+        }
+        #headline-img {
+            width: 80px;
+            min-width: 80px;
+            height: 80px;
+            min-height: 80px;
+            border-radius: 100px;
+            margin-right: 14px;
+        }
+        .headline-flex h1 {
+            color: #FBFBFE;
+            font-size: 42px;
+            font-family: Helvetica;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+        .searchbar-container {
+            background-color: #2B2933;
+            width: 100%;
+            max-width: 720px;
+            min-width: 230px;
+            height: 52px;
+            min-height: 52px;
+
+            margin-bottom: 48px;
+        }
+        .searchbar-flex {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            background-color: #42404D;
+            border-radius: 8px;
+        }
+        .searchbar-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 54px;
+            min-width: 54px;
+            height: 52px;
+            min-height: 52px;
+        }
+        .searchbar input {
+            width: 100%;
+            height: 52px;
+            border-width: 0;
+            border-radius: 0 8px 8px 0;
+            outline: none;
+            padding: 0 17px;
+
+            font-style: normal;
+            font-size: 16px;
+            font-family: Helvetica;
+            font-weight: 400;
+            word-wrap: break-word;
+
+            color: #A5A5AC;
+            background-color: #42404D;
+        }
+        .links-container {
+            max-width: 960px;
+            min-width: none;
+            width: 100%;
+            min-width: 230px;
+            height: 144px;
+            min-height: 144px;
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            flex-wrap: wrap;
+        }
+        .linkcard {
+            border-radius: 8px;
+            width: 120px;
+            min-width: 120px;
+            height: 144px;
+            min-height: 144px;
+            background-color: #2B2933;
+        }
+        .linkcard:hover {
+            background-color: #55555C;
+        }
+        .linkcard-flex {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+        }
+        .linkcard-options-img {
+            z-index: 2;
+            position: relative;
+            visibility: hidden;
+            left: 84px;
+            top: 2px;
+        }
+        .linkcard-background {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            width: 80px;
+            min-width: 80px;
+            height: 80px;
+            min-height: 80px;
+            background-color: #42404D;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .linkcard-img {
+            width: 32px;
+            min-width: 32px;
+            height: 32px;
+            min-height: 32px;
+        }
+        .linkcard-header {
+            color: #FBFBFE;
+            font-size: 14px;
+            font-family: Helvetica;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+        #options-tab-container {
+            z-index: 1;
+            position: absolute;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 340px;
+            height: 250px;
+            background-color: #42414D;
+            border-radius: 8px;
+        }
+        .options-tab-flex {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        #options-tab-container span:first-of-type {
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 24px;
+        }
+        #options-tab-container span {
+            color: #FBFBFE;
+            font-size: 14px;
+            font-family: Helvetica;
+            font-weight: 400;
+            word-wrap: break-word;
+            margin-bottom: 8px;
+        }
+        #options-tab-container span:nth-of-type(3) {
+            margin-top: 8px;
+        }
+        #options-tab-container input {
+            background-color: #42414D;
+            border: 1px solid #605F66;
+            border-radius: 4px;
+
+            color: #FBFBFE;
+            font-size: 14px;
+            font-family: Helvetica;
+            font-weight: 400;
+            word-wrap: break-word;
+
+            height: 30px;
+            outline: none;
+            padding: 0 8px;
+        }
+        .options-tab-buttons {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .options-tab-buttons button {
+            width: 118px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .options-tab-buttons button:first-of-type {
+            background-color: #42414D;
+            border: 1px solid #605F66;
+            color: #FBFBFE;
+        }
+        .options-tab-buttons button:last-of-type {
+            background-color: #45DEFF;
+            border: 1px solid #45DEFF;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="options-tab-container">
+        <div class="options-tab-flex">
+            <span>Change link</span>
+            <span>Name</span>
+            <input type="text" id="options-name">
+            <span>URL</span>
+            <input type="text" id="options-url">
+            <div class="options-tab-buttons">
+                <button id="options-tab-save-button" onclick="optionsCancel()">Cancel</button>
+                <button id="options-tab-save-button" onclick="optionsSave()">Save</button>
+            </div>
+        </div>
+    </div>
+    <div class="body-wrapper">
+        <div class="headline-container">
+            <div class="headline-flex">
+                <img id="headline-img" src="./headline-image.png">
+                <h1>Hi, Michael!</h1>
+            </div>
+        </div>
+        <div class="searchbar-container">
+            <div class="searchbar">
+                <div class="searchbar-flex">
+                    <div class="searchbar-icon-container" onclick="focusTextInput()">
+                        <img src="./search.svg">
+                    </div>
+                    <input type="search" id="search-field" placeholder="Search on the Internet">
+                </div>
+            </div>
+        </div>
+        <div class="links-container">
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+            <div class="linkcard">
+                <img class="linkcard-options-img" src="./options.svg" onclick="optionsClick()">
+                <div class="linkcard-flex">
+                    <div class="linkcard-background">
+                        <img class="linkcard-img" src="">
+                    </div>
+                    <span class="linkcard-header"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var currentElementIndex = 0;
+        const linkcards = document.querySelectorAll(".linkcard");
+        const linkcardOptionButtons = document.querySelectorAll(".linkcard-options-img");
+
+
+        window.addEventListener("load", (event) => {
+            const linkcards = document.querySelectorAll(".linkcard");
+            linkcards.forEach(function (card, index) {
+                var key = "homepageLink" + index;
+                const cardHeader = document.getElementsByClassName('linkcard-header')[index]
+                try {
+                    var parts = localStorage.getItem(key).split(">");
+                    cardHeader.innerText = parts[0];
+                    faviconUrl = `https://www.google.com/s2/favicons?domain=${parts[1]}`;
+                    const favicondest = document.getElementsByClassName('linkcard-img')[index];
+                    favicondest.src = faviconUrl;
+                } catch (error) {
+
+                }
+                
+            });
+        });
+
+        function optionsCancel() {
+            const optionsWindow = document.getElementById('options-tab-container');
+            optionsWindow.style.display = "none"
+            linkcards.forEach(function (card, index) {
+                card.style.visibility = "visible";
+            });
+        }
+
+
+        function optionsClick() {
+            
+            linkcards.forEach(function (card, index) {
+                card.style.visibility = "hidden";
+                linkcardOptionButtons[index].style.visibility = "hidden"
+            });
+            
+            const optionsWindow = document.getElementById('options-tab-container');
+            var linkName = document.getElementById('options-name');
+            var linkUrl = document.getElementById('options-url');
+
+            
+            var key = "homepageLink" + currentElementIndex;
+            try {
+                var parts = localStorage.getItem(key).split(">");
+                linkName.value = parts[0];
+                linkUrl.value = parts[1];
+            } catch (error) {
+
+            }
+            optionsWindow.style.display = "flex"
+        }
+
+        
+        function optionsSave() {
+            var key = "homepageLink" + currentElementIndex;
+            var linkName = document.getElementById('options-name').value;
+            var linkUrl = document.getElementById('options-url').value;
+            if(linkName == "") {
+                var modifiedUrl = linkUrl.replace(/^(http?:\/\/)?(www\.)?/, '');
+                var modifiedUrl = linkUrl.replace(/^(https?:\/\/)?(www\.)?/, '');
+                modifiedUrl = modifiedUrl.replace(/\.[^.]+$/, '');
+                linkName = modifiedUrl;
+            }
+            if(linkUrl == "") {
+                removeItem(key);
+            } else {
+                if (!/^https?:\/\//i.test(linkUrl)) {
+                    linkUrl = "http://" + linkUrl;
+                }
+                const cardHeader = document.getElementsByClassName('linkcard-header')[currentElementIndex]
+                cardHeader.innerText = linkName;
+                faviconUrl = `https://www.google.com/s2/favicons?domain=${linkUrl}`;
+                const favicondest = document.getElementsByClassName('linkcard-img')[currentElementIndex];
+                favicondest.src = faviconUrl;
+                localStorage.setItem(key, linkName + ">" + linkUrl);
+                optionsCancel();
+            }
+        }
+
+        
+        linkcards.forEach(function (card, index) {
+            card.addEventListener("mouseover", function () {
+                currentElementIndex = index;
+                linkcardOptionButtons[index].style.visibility = "visible"
+            });
+            card.addEventListener("mouseout", function () {
+                linkcardOptionButtons[index].style.visibility = "hidden"
+            });
+        });
+
+
+        const linksAreas = document.querySelectorAll(".linkcard-background");
+        linksAreas.forEach(function (area, index) {
+            area.addEventListener("click", function () {
+                var key = "homepageLink" + currentElementIndex;
+                try {
+                    var parts = localStorage.getItem(key).split(">");
+                    window.location.href = parts[1];
+                } catch (error) {
+
+                }
+            });
+        });
+
+        
+        linkcardOptionButtons.forEach(function (image) {
+            image.addEventListener("mouseover", function () {
+                image.src = "./options-hover.svg";
+                image.style.cursor = "pointer";
+            });
+            image.addEventListener("mouseout", function () {
+                image.src = "./options.svg";
+                image.style.cursor = "default";
+            });
+        });
+
+        
+        
+        //Работа со строкой ввода запросов
+        const textInput = document.getElementById('search-field');
+        window.addEventListener("load", (event) => {
+            focusTextInput()
+        });
+        function focusTextInput() {
+            textInput.focus();
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Enter') {
+                window.location.href='https://www.google.com/search?q=' +
+                document.getElementById('search-field').value;
+            }
+        });
+
+
+
+
+
+
+
+
+        
+        
+        
+
+        //localStorage.setItem('test', 'moodle.ehu.lt');
+    </script>
+</body>
+</html>
